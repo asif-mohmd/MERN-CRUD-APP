@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
   return (
-    <div className="flex justify-between bg-slate-100 m-2">
+    <div className="flex justify-between bg-slate-100 ">
       <div className="">
 
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "../../../services/Axios"
+
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -13,16 +14,19 @@ function Signup() {
     password: "",
   });
 
+  const navigate = useNavigate()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8080/", user);
+      await axios.post("/signup", user);
+      navigate("/")
     } catch (err) {
       console.log("axios something went wrong");
     }
 
-    // setUser({name:"",email:"",age:"",location:"",job:"",password:""})
+    setUser({name:"",email:"",age:"",location:"",job:"",password:""})
   };
 
   return (
