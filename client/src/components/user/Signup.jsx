@@ -1,23 +1,29 @@
 import React, { useState } from "react";
+import axios from 'axios';
+
 import { Link, useNavigate } from "react-router-dom";
 
-
-
 function Signup() {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    age: "",
+    location: "",
+    job: "",
+    password: "",
+  });
 
-  const [user,setUser] = useState({name:'',email:'',age:'',location:'',job:'',password:''})
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = async (e) =>{
-  e.preventDefault()
+    try {
+      await axios.post("http://localhost:8080/", user);
+    } catch (err) {
+      console.log("axios something went wrong");
+    }
 
-  try{
-   await axios.post("/",user)
-  }catch(err){
-   console.log("axios something went wrong")
-  }
-  
-  }
-
+    // setUser({name:"",email:"",age:"",location:"",job:"",password:""})
+  };
 
   return (
     <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center bg-slate-100">
@@ -37,7 +43,7 @@ function Signup() {
                 type="text"
                 placeholder="Enter your name"
                 value={user.name}
-                onChange={(e)=>setUser({...user,name:e.target.value})}
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
               />
             </div>
 
@@ -50,8 +56,7 @@ function Signup() {
                 type="email"
                 placeholder="mail@gmail.com"
                 value={user.email}
-                onChange={(e)=>setUser({...user,email:e.target.value})}
-                
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
               />
             </div>
 
@@ -64,7 +69,7 @@ function Signup() {
                 type="text"
                 placeholder="Enter your age"
                 value={user.age}
-                onChange={(e)=>setUser({...user,age:e.target.value})}
+                onChange={(e) => setUser({ ...user, age: e.target.value })}
               />
             </div>
 
@@ -77,7 +82,7 @@ function Signup() {
                 type="text"
                 placeholder="Enter your Location"
                 value={user.location}
-                onChange={(e)=>setUser({...user,location:e.target.value})}
+                onChange={(e) => setUser({ ...user, location: e.target.value })}
               />
             </div>
 
@@ -90,7 +95,7 @@ function Signup() {
                 type="text"
                 placeholder="Enter your details"
                 value={user.job}
-                onChange={(e)=>setUser({...user,job:e.target.value})}
+                onChange={(e) => setUser({ ...user, job: e.target.value })}
               />
             </div>
 
@@ -103,7 +108,7 @@ function Signup() {
                 type="text"
                 placeholder="Enter your password"
                 value={user.password}
-                onChange={(e)=>setUser({...user,password:e.target.value})}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
               />
             </div>
             <div className="flex items-center justify-between"></div>
