@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/user/Header";
-import Body from "./components/user/Body";
 import Signup from "./components/user/Signup";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./components/user/Login";
 import { Provider } from "react-redux";
 import appStore from "./redux/Store"
+import Profile from "./components/user/Profile";
 
 const AppLayout = () => {
   return (
@@ -31,7 +31,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path:"/profile",
-        element:<Body/>
+        element:<Profile/>
+      },
+      {
+        path:"/signup",
+        element:<Signup/>
       },
     ],
   },

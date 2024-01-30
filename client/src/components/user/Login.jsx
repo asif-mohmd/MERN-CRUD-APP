@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../../../services/Axios";
+import axios from "../../services/Axios"
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, } from "react-redux";
 import {userLogin} from "../../redux/Slices/authSlice"
@@ -107,7 +107,7 @@ function Login() {
               Copyright © 2023{" "}
               <Link
                 className="text-sm text-blue-500 hover:underline "
-                to="/register"
+                to="/signup"
               >
                 Signup
               </Link>
