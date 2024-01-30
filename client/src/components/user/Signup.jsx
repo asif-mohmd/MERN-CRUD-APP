@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "../../../services/Axios"
 
-
 import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
+    const navigate = useNavigate()
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -14,16 +14,18 @@ function Signup() {
     password: "",
   });
 
-  const navigate = useNavigate()
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("/signup", user);
-      navigate("/")
+      console.log("oooooooooooooooooooo")
+       const userData = await axios.post("/signup", user);
+console.log(userData,";;;;;;;;;;;;;;")
+      navigate("/profile");
     } catch (err) {
-      console.log("axios something went wrong");
+      console.error("Error during user registration:", err);
     }
 
     setUser({name:"",email:"",age:"",location:"",job:"",password:""})

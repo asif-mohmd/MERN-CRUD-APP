@@ -4,11 +4,12 @@ import Header from "./components/user/Header";
 import Body from "./components/user/body";
 import Signup from "./components/user/Signup";
 import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import Login from "./components/user/Login";
 
 const AppLayout = () => {
   return (
     <div className="">
-      <Header/>
+      <Header />
       <Outlet/>
     </div>
   );
@@ -20,12 +21,12 @@ const appRouter = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path: "/register",
-        element: <Signup />,
+        path:"/",
+        element:<Login/>
       },
       {
-        path: "/",
-        element: <Body />,
+        path:"/profile",
+        element:<Body/>
       },
     ],
   },

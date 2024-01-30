@@ -1,12 +1,10 @@
-const connectDB = require("./config/connecton")
-const userRouter = require("./routes/user")
+
 // const adminRouter = require("")
+import connectDB from "./config/connecton.js"
+import userRouter from "./routes/user.js"
+import express  from "express"
+import cors from "cors"
 
-
-const express = require('express')
-
-
-const cors = require('cors')
 const app = express()
 
 connectDB()
