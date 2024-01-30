@@ -39,6 +39,7 @@ export const authUser = asyncHandler(async (req, res) => {
   console.log(user,"user")
   if (user) {
     if((await bcrypt.compare(password,user.password))){
+      console.log("keriiiiiiiiiiii")
         res.json({
           _id:user._id,
           name:user.name,

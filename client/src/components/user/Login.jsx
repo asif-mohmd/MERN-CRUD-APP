@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import axios from "../../../services/Axios";
-
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, } from "react-redux";
+import {userLogin} from "../../redux/Slices/authSlice"
+import { toast } from "react-toastify";
 
 function Login() {
 
     const [creds,setCreds] = useState({email:"",password:""})
     const [load,setLoad] = useState(false)
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+   
     
 
   const handleSubmit = async (e) => {
@@ -14,10 +20,20 @@ function Login() {
 
     try{
         const userData = await axios.post("/login",creds)
-        console.log(userData,"-----------")
-    }catch{
+        console.log("before redux",userData.data)
+        dispatch(userLogin(userData.data))
+        console.log("after redux")
+        navigate("/profile")
 
+    }catch(err){
+      console.log(err,'errrr');
+      // toast.error(err.request.status === 402 ?'Invalid Email Id': 'Incorrect Password')
     }
+
+    setCreds({
+      email:"",
+      password:""
+    })
 
   
 
