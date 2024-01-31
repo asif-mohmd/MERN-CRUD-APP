@@ -1,32 +1,18 @@
 import jwt from "jsonwebtoken";
-import asyncHandler from "express-async-handler";
-import UserModel from "../models/UserModel";
 
-const protect = asyncHandler(async (req,res,next)=>{
-    let token
-
-    if(req.header.authorization && req.header.authorization.startWith('Bearer')){
-        try{
-            token = req.header.authorization.split(" ")[1]
-
-            const decoded = jwt.verify({token},process.env.JWT_SECRET)
-
-            req.user = await UserModel.findById(decoded.id).select("-password")
-
-            next()
-
-        }catch(err){
-            console.log(err)
-            res.status(401)
-            throw new Error('Not authorized')
-
-        }
+export const authorization = (req, res, next) => {
+    const token = req.cookies.access_token;
+    console.log("authing :",token)
+    if (!token) {
+        console.log("tk not working")
+      return res.sendStatus(403);
     }
-
-    if(!token){
-        res.status(401)
-        throw new Error("Not authorized no token")
+    try {
+      const data = jwt.verify(token, process.env.JWT_SECRET);
+      req.userId = data.id;
+      req.userRole = data.role;
+      return next();
+    } catch {
+      return res.sendStatus(403);
     }
-
-
-})
+  };

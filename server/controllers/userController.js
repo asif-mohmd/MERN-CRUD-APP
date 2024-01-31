@@ -32,7 +32,6 @@ export const registerUser = AsyncHandler(async (req, res) => {
       age: userData.age,
       location: userData.location,
       job: userData.job,
-      token:generateToken(userData._id)
     });
   } else {
     res.status(400);
@@ -47,13 +46,14 @@ export const authUser = AsyncHandler(async (req, res) => {
   console.log(user, "user");
   if (user && (await user.matchPassword(password))) {
     console.log("keriiiiiiiiiiii");
-    res.json({
+    let token =  generateToken(user._id)
+    res.cookie('access_token',token, { httpOnly: true, secure: process.env.JWT_TOKEN, maxAge: 3600000 }).status(200).json({
       _id: user._id,
       name: user.name,
       age: user.age,
       location: user.location,
       job: user.job,
-      token: generateToken(user._id),
+      
     });
   } else {
     console.log("user does not exists");

@@ -17,6 +17,7 @@ const Profile = () => {
   const logout =()=>{
    localStorage.removeItem('jwt')
    dispatch(clearUserData())
+   
    dispatch(userLogout())
    navigate('/')
   }

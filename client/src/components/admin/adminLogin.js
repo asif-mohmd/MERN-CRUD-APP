@@ -33,11 +33,13 @@ const AdminLogin = () => {
     })
     setload(false)
   }
-  useEffect(()=>{
-    const isAuth = localStorage.getItem('adminToken')
-  isAuth && navigate('/adminPanel')
+  // useEffect(async()=>{
+  //   const isAuth = localStorage.getItem('adminToken')
+  // isAuth &&
+  //  navigate('/adminPanel')
+
   
-  },[navigate])
+  // },[navigate])
   return (
     <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center bg-slate-100">
      

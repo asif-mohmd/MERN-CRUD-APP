@@ -5,6 +5,7 @@ import userRouter from "./routes/user.js"
 import adminRouter from "./routes/admin.js"
 import express  from "express"
 import cors from "cors"
+import cookieParser from "cookie-parser"
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js"
 
 const app = express()
@@ -12,7 +13,8 @@ const app = express()
 connectDB()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({ credentials: true }));
+app.use(cookieParser())
 
 app.use("/",userRouter)
 app.use("/admin",adminRouter)
