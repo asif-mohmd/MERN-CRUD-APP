@@ -12,6 +12,8 @@ export const register = asyncHandler(async (req, res) => {
 
   if (user) {
     console.log("User Already exists");
+    res.status(400)
+    throw new Error("User exists");
   }
   
   const userData = await UserModel.create({
@@ -26,12 +28,12 @@ export const register = asyncHandler(async (req, res) => {
   if (userData) {
     
     res.status(201).json({
-      _id: user._id,
-      name:user.name,
-      email:user.email,
-      age:user.age,
-      location:user.location,
-      job:user.job,
+      _id: userData._id,
+      name:userData.name,
+      email:userData.email,
+      age:userData.age,
+      location:userData.location,
+      job:userData.job,
     })
   } else {
     res.status(400);

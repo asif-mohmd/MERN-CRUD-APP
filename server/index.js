@@ -12,10 +12,12 @@ connectDB()
 
 app.use(express.json())
 app.use(cors())
-app.use(notFound)
-app.use(errorHandler)
 
 app.use("/",userRouter)
+
+
+app.use(notFound)
+app.use(errorHandler)
 
 
 
