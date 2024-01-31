@@ -23,7 +23,7 @@ function Signup() {
       console.log("oooooooooooooooooooo")
        const userData = await axios.post("/signup", user);
 console.log(userData,";;;;;;;;;;;;;;")
-      navigate("/profile");
+      navigate("/");
     } catch (err) {
       console.error("Error during user registration:", err);
     }

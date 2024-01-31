@@ -11,7 +11,7 @@ const DeleteModal = ({modal,closeModal,id}) => {
     const cancelButtonRef = useRef(null)
 
     const deleteUser =async()=>{
-        await axios.post(`/admin/deleteuser/${id}`)
+        await axios.post(`/admin/deleteUser/${id}`)
         navigate('/adminPanel')
         closeModal()
         

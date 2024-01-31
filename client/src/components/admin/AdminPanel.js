@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AdminTable from "./AdminTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,7 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
-  const admin = useSelector((state) => state.admin);
+  // const admin = useSelector((state) => state.admin);
   const logout = () => {
     localStorage.removeItem("adminToken");
 

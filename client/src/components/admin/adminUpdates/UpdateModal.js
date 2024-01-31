@@ -25,7 +25,7 @@ const UpdateModal = ({ modal, closeModal, user }) => {
     e.preventDefault()
     try {
       user !== 'undefined' ?
-        await axios.post(`/admin/updateuser/${user._id}`, creds)
+        await axios.post(`/admin/updateUser/${user._id}`, creds)
         :
         await axios.post('/admin/adduser', creds);
       closeModal()

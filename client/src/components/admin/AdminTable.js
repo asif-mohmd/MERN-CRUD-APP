@@ -6,7 +6,7 @@ import UpdateModal from './adminUpdates/UpdateModal'
 const AdminTable = () => {
     const [deleteModal, setdeleteModal] = useState(false)
     const [editModal, seteditModal] = useState(false)
-    const [users, setusers] = useState([])
+    const [users, setUsers] = useState([])
     const [searchval, setsearchval] = useState('')
     const [userId, setuserId] = useState()
     const [updateUser, setupdateUser] = useState()
@@ -34,7 +34,7 @@ const AdminTable = () => {
         try{
 
             const res = await axios.post('/admin/searchuser', {name : searchval})
-            setusers(res.data)
+            setUsers(res.data)
             setsearchval('')
         }catch(err){
             console.log(err);
@@ -46,8 +46,9 @@ const AdminTable = () => {
         
         const fetchData = async () => {
             try {
-              const res = await axios.get('/admin/userdata');
-              setusers(res.data)
+              const {data} = await axios.get('/admin/userdata');
+              console.log("resdata:",data)
+              setUsers(data.userData)
             } catch (error) {
               console.log(error);
             }
