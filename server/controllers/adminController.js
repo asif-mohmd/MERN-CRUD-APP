@@ -90,6 +90,24 @@ export const addUser = AsyncHandler(async (req,res)=>{
 
 })
 
+export const searchUser = AsyncHandler (async (req,res)=>{
+
+  const {name} = req.body
+
+  console.log("name:",name)
+
+  const users = await UserModel.find({name: {$regex: new RegExp(name,"i")}, __v:0})
+
+  if(users){
+    res.status(201).json(users)
+  }else {
+    console.log("Not Deleted");
+    res.status(400);
+    throw new Error();
+  }
+
+})
+
 
 
 export const getUsers = AsyncHandler(async (req,res)=>{

@@ -33,7 +33,7 @@ const AdminTable = () => {
         e.preventDefault()
         try{
 
-            const res = await axios.post('/admin/searchuser', {name : searchval})
+            const res = await axios.post('/admin/searchUser', {name : searchval})
             setUsers(res.data)
             setsearchval('')
         }catch(err){
