@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import bcrypt from "bcryptjs"
 
 const UserModelSchema = new mongoose.Schema({
     name : {
@@ -36,17 +37,17 @@ const UserModelSchema = new mongoose.Schema({
 
 )
 
-// UserModelSchema.methods.matchPassword = async function(enteredPassword){
-//     return await bcrypt.compare(enteredPassword,this.password)
-// }
+UserModelSchema.methods.matchPassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword,this.password)
+}
 
-// UserModelSchema.pre('save',async function(next){
-//     if(!this.isModified){
-//         next()
-//     }
-//     const salt = await bcrypt.genSalt(10)
-//     this.password = bcrypt.hash(this.password,salt)
-// })
+UserModelSchema.pre('save',async function(next){
+    if(!this.isModified){
+        next()
+    }
+    const salt = await bcrypt.genSalt(10)
+    this.password = bcrypt.hash(this.password,salt)
+})
 
 const UserModel = mongoose.model('UserModel',UserModelSchema)
 

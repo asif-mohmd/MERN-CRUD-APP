@@ -1,6 +1,5 @@
 import UserModel from "../models/UserModel.js";
 import asyncHandler from "express-async-handler";
-import bcrypt from "bcrypt";
 import generateToken from "../config/generateToken.js";
 
 
@@ -14,7 +13,7 @@ export const register = asyncHandler(async (req, res) => {
   if (user) {
     console.log("User Already exists");
   }
-  password = await bcrypt.hash(password, 10);
+  
   const userData = await UserModel.create({
     name,
     email,
@@ -27,7 +26,12 @@ export const register = asyncHandler(async (req, res) => {
   if (userData) {
     
     res.status(201).json({
-
+      _id: user._id,
+      name:user.name,
+      email:user.email,
+      age:user.age,
+      location:user.location,
+      job:user.job,
     })
   } else {
     res.status(400);
@@ -41,8 +45,8 @@ export const authUser = asyncHandler(async (req, res) => {
 
   const user = await UserModel.findOne({ email: email });
   console.log(user,"user")
-  if (user) {
-    if((await bcrypt.compare(password,user.password))){
+  if (user && (await user.matchPassword(password))) {
+   
       console.log("keriiiiiiiiiiii")
         res.json({
           _id:user._id,
@@ -52,7 +56,7 @@ export const authUser = asyncHandler(async (req, res) => {
           job:user.job,
           token: generateToken(user._id)
         })
-    }
+    
   } else {
     console.log("user does not exists");
     res.status(400);
