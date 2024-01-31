@@ -11,24 +11,16 @@ export const adminLogin = AsyncHandler(async (req, res) => {
   console.log(adminData, ":adminData");
   if (adminData && (await adminData.matchPassword(password))) {
     console.log("admin workss");
-    let token = generateToken(adminData._id);
-    console.log("Generated Token:", token);
-    res.cookie('access_token', token, { httpOnly: true, secure: process.env.JWT_TOKEN === "Asif123", maxAge: 3600000 }).status(200).json({
+    res.json({
       name: "Admin",
+      token:generateToken(adminData._id)
     });
-    
   } else {
     console.log("user does not exists");
     res.status(400);
     throw new Error();
   }
 });
-
-export const adminLogout = AsyncHandler(async(req,res)=>{
-  console.log("logout")
-  return res.clearCookie("access_token").status(200).json({message: "You're now logged out"})
-})
-
 
 export const deleteUser = AsyncHandler(async (req,res)=>{
     console.log("delete route")
@@ -121,13 +113,8 @@ export const searchUser = AsyncHandler (async (req,res)=>{
 
 
 export const getUsers = AsyncHandler(async (req,res)=>{
- 
-    console.log("cookie:",req.cookies)
-
     const userData = await UserModel.find()
     res.json({
         userData:userData
     })
-  
-   
 })

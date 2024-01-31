@@ -6,7 +6,7 @@ import { BeatLoader } from 'react-spinners'
 
 const AdminLogin = () => {
 
-  const dispatch = useDispatch() 
+  // const dispatch = useDispatch() 
   const navigate = useNavigate()
 
   const [load, setload] = useState(false)
@@ -20,8 +20,8 @@ const AdminLogin = () => {
     try{
       const response = await axios.post('/admin/login',creds)
       // dispatch(adminLogin(response.data))
-      // localStorage.setItem('adminToken', response.data.adminToken)
-      console.log("herere",response)
+      console.log(response)
+      localStorage.setItem('adminToken', response.data.token)
       navigate('/adminPanel')
 
     }catch(err){
@@ -33,13 +33,13 @@ const AdminLogin = () => {
     })
     setload(false)
   }
-  // useEffect(async()=>{
-  //   const isAuth = localStorage.getItem('adminToken')
-  // isAuth &&
-  //  navigate('/adminPanel')
+  useEffect(()=>{
+    const isAuth = localStorage.getItem('adminToken')
+  isAuth &&
+   navigate('/adminPanel')
 
   
-  // },[navigate])
+  },[navigate])
   return (
     <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center bg-slate-100">
      

@@ -4,20 +4,16 @@ import { useNavigate } from "react-router-dom";
 import AdminTable from "./AdminTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 
 
 const AdminPanel = () => {
   const navigate = useNavigate();
   // const admin = useSelector((state) => state.admin);
-  const logout = async () => {
-    // localStorage.removeItem("adminToken");
-    const clearToken = await axios.get("/admin/logout")    
-    if(clearToken){
-      console.log("kkkkkkkkkk")
-      navigate("/admin")
-    }
+  const logout = () => {
+    localStorage.removeItem("adminToken");
+    
 
+    navigate("/admin");
   };
   return (
     <>

@@ -101,7 +101,7 @@ const Profile = () => {
             </button>{" "}
           </div>
         </div>
-        {/* <UpdateProfilePic modal={modal} closeModal={closeModal} id={user._id}/> */}
+        <UpdateProfilePic modal={modal} closeModal={closeModal} id={user._id}/>
       </div>
     </>
   );
