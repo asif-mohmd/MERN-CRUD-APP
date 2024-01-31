@@ -7,13 +7,15 @@ import Login from "./components/user/Login";
 import { Provider } from "react-redux";
 import appStore from "./redux/Store"
 import Profile from "./components/user/Profile";
+import AdminLogin from "./components/admin/adminLogin";
+import AdminPanel from "./components/admin/AdminPanel";
 
 const AppLayout = () => {
   return (
 
     <Provider store={appStore}>
     <div className="">
-      <Header />
+      {/* <Header /> */}
       <Outlet/>
     </div>
     </Provider>
@@ -36,6 +38,14 @@ const appRouter = createBrowserRouter([
       {
         path:"/signup",
         element:<Signup/>
+      },
+      {
+        path:"/admin",
+        element:<AdminLogin/>
+      },
+      {
+        path:"/adminPanel",
+        element:<AdminPanel/>
       },
     ],
   },

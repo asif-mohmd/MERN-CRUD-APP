@@ -1,8 +1,8 @@
 import UserModel from "../models/UserModel.js";
-import asyncHandler from "express-async-handler";
+import AsyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 
-export const registerUser = asyncHandler(async (req, res) => {
+export const registerUser = AsyncHandler(async (req, res) => {
   let { name, email, age, location, job, password } = req.body;
 
   console.log("name", name);
@@ -40,7 +40,7 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-export const authUser = asyncHandler(async (req, res) => {
+export const authUser = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await UserModel.findOne({ email: email });

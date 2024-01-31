@@ -16,6 +16,7 @@ const userDataSlice = createSlice({
             state.userData = action.payload
         },
         clearUserData : (state)=>{
+            console.log("clear called")
             state.data = null
         }
 

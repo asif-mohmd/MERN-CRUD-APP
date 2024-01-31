@@ -4,16 +4,19 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userLogout } from "../../redux/Slices/authSlice";
+import { clearUserData } from "../../redux/Slices/userDataSlice";
 
 const Profile = () => {
   const [modal, setmodal] = useState(false);
   const user = useSelector((store) => store.auth);
   const {userData} = useSelector((store) => store.userData)
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
 
   const logout =()=>{
    localStorage.removeItem('jwt')
+   dispatch(clearUserData())
    dispatch(userLogout())
    navigate('/')
   }
