@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userLogout } from "../../redux/Slices/authSlice";
 import { clearUserData } from "../../redux/Slices/userDataSlice";
+import UpdateProfilePic from "./upload/UpdateProfilePic";
 
 const Profile = () => {
   const [modal, setmodal] = useState(false);
   const user = useSelector((store) => store.auth);
   const {userData} = useSelector((store) => store.userData)
+  const userImg = useSelector((store) => store.userData.userImg);
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
@@ -52,15 +54,15 @@ const Profile = () => {
               <img
                 onClick={() => setmodal(true)}
                 src={
-                  user.img
-                    ? user.img
+                  userImg
+                    ? userImg
                     : "https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg"
                 }
                 className="cursor-pointer w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute 
               inset-x-0 top-0 -mt-24 flex items-center justify-center 
                duration-300 ease-in-out hover:scale-105 hover:opacity-70"
                 alt=""
-                title={user.img ? "Change Photo" : "Add photo"}
+                title={userImg ? "Change Photo" : "Add photo"}
               />{" "}
             </div>{" "}
             <div className="space-x-8 flex text-xs justify-between mt-32 md:mt-0 md:justify-end">
@@ -98,10 +100,10 @@ const Profile = () => {
             <button className="text-indigo-500 py-2 px-4  font-medium mt-4">
               {" "}
               Show more
-            </button>{" "}
+            </button>{" "} 
           </div>
         </div>
-        <UpdateProfilePic modal={modal} closeModal={closeModal} id={user._id}/>
+        <UpdateProfilePic modal={modal} closeModal={closeModal} id={userData._id}/>
       </div>
     </>
   );

@@ -1,10 +1,11 @@
 import React, { Fragment,  useRef, useState } from 'react'
 
-// import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 import Avatar from 'react-avatar-edit'
 import axios from "../../../services/Axios"
 import { useDispatch } from 'react-redux'
 // import { updatePicture } from '../../redux/features/authSlice'
+import { updatePicture } from '../../../redux/Slices/userDataSlice'
 import { useNavigate } from 'react-router-dom'
 import { BeatLoader } from 'react-spinners'
 
@@ -27,7 +28,8 @@ const UpdateProfilePic = ({modal,closeModal,id}) => {
     try{
       
       const res = await axios.post(`/updatePicture/${id}`,{image : preview})
-      dispatch(updatePicture(res.data))
+      console.log("res",res)
+      dispatch(updatePicture(res.data.img))
       closeModal()
       navigate('/profile')
     }catch(err){

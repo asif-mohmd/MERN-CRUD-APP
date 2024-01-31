@@ -61,3 +61,21 @@ export const authUser = AsyncHandler(async (req, res) => {
     throw new Error();
   }
 });
+
+export const upadatePicture =AsyncHandler(async(req,res)=>{
+    console.log("imgggggggggggggggggggg",req.params.id)
+  const user = await UserModel.findById(req.params.id)
+
+ if (user) {
+  console.log("im22222222222222222222")
+    user.img = req.body.image; 
+    await user.save(); 
+    console.log("img3333333333333");
+    res.status(201).json({
+      img: user.img,
+    });
+  } else {
+    res.status(404).json({ message: 'User not found' });
+  }
+
+})

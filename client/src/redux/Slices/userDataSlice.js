@@ -4,7 +4,8 @@ const { createSlice } = require("@reduxjs/toolkit");
 initialState = {
     userData : null,
     loading : null,
-    error : null
+    error : null,
+    userImg : ''
     
 }
 
@@ -18,12 +19,15 @@ const userDataSlice = createSlice({
         clearUserData : (state)=>{
             console.log("clear called")
             state.data = null
+        },
+        updatePicture:(state,action)=>{
+            state.userImg = action.payload;
         }
 
     }
    
 })
 
-export const {setUserData,clearUserData} = userDataSlice.actions
+export const {setUserData,clearUserData,updatePicture} = userDataSlice.actions
 
 export default userDataSlice.reducer
