@@ -5,8 +5,7 @@ import {register, authUser} from "../controllers/userController.js"
 const router = express.Router()
 
 
-
-router.post("/signup",register)
-router.post("/login",authUser)
+router.route("/signup").post(register)
+router.route("/login").post(authUser)
 
 export default router

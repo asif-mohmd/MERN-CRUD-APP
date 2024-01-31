@@ -1,6 +1,7 @@
 import UserModel from "../models/UserModel.js";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
+import generateToken from "../config/generateToken.js";
 
 
 export const register = asyncHandler(async (req, res) => {
@@ -24,7 +25,10 @@ export const register = asyncHandler(async (req, res) => {
   });
 
   if (userData) {
-    res.json(userData);
+    
+    res.status(201).json({
+
+    })
   } else {
     res.status(400);
     throw new Error();
@@ -45,7 +49,8 @@ export const authUser = asyncHandler(async (req, res) => {
           name:user.name,
           age:user.age,
           location:user.location,
-          job:user.job
+          job:user.job,
+          token: generateToken(user._id)
         })
     }
   } else {
