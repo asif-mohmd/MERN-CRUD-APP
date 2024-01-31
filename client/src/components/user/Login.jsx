@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector, } from "react-redux";
 import {userLogin} from "../../redux/Slices/authSlice"
 import { toast } from "react-toastify";
+import { setUserData } from "../../redux/Slices/userDataSlice";
 
 function Login() {
 
@@ -22,9 +23,10 @@ function Login() {
         const {data} = await axios.post("/login",creds)
         console.log("before redux",data)
         localStorage.setItem('jwt',data.token)
+        dispatch(setUserData(data))
         dispatch(userLogin())
         console.log("after redux")
-        navigate("/profile", { state: { data } });
+        navigate("/profile");
 
     }catch(err){
       console.log(err,'errrr');

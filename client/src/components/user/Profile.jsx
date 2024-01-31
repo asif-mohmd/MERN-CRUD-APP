@@ -8,17 +8,18 @@ import { userLogout } from "../../redux/Slices/authSlice";
 const Profile = () => {
   const [modal, setmodal] = useState(false);
   const user = useSelector((store) => store.auth);
+  const {userData} = useSelector((store) => store.userData)
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const dataLocation = useLocation();
-  const { name, age , location ,job } = dataLocation.state.data;
 
- 
-  const logout = () => {
-    localStorage.removeItem("jwt");
-    dispatch(userLogout());
-    navigate("/");
-  };
+
+  const logout =()=>{
+   localStorage.removeItem('jwt')
+   dispatch(userLogout())
+   navigate('/')
+  }
+
+ console.log("Redux took data:",userData)
+
   const closeModal = () => {
     setmodal(false);
   };
@@ -73,14 +74,14 @@ const Profile = () => {
           <div className="mt-20 text-center border-b py-8 pb-12">
             {" "}
             <h1 className="text-4xl font-medium text-gray-700">
-              {name},{" "}
-              <span className="font-light text-gray-500">{age}</span>
+              {userData.name},{" "}
+              <span className="font-light text-gray-500">{userData.age}</span>
             </h1>{" "}
             <p className="font-light text-gray-600 mt-3">
               <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-              {location}
+              {userData.location}
             </p>{" "}
-            <p className="mt-8 text-gray-500">{job}</p>{" "}
+            <p className="mt-8 text-gray-500">{userData.job}</p>{" "} 
           </div>{" "}
           <div className="mt-12 flex flex-col justify-center">
             {" "}
