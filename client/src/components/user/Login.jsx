@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../../services/Axios"
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, } from "react-redux";
+import { useDispatch, useSelector, } from "react-redux";
 import {userLogin} from "../../redux/Slices/authSlice"
 import { toast } from "react-toastify";
 
@@ -9,7 +9,7 @@ function Login() {
 
     const [creds,setCreds] = useState({email:"",password:""})
     const [load,setLoad] = useState(false)
-
+    const user = useSelector((state) => state.auth)
     const dispatch = useDispatch()
     const navigate = useNavigate()
    
@@ -19,11 +19,12 @@ function Login() {
     e.preventDefault();
 
     try{
-        const userData = await axios.post("/login",creds)
-        console.log("before redux",userData.data)
-        dispatch(userLogin(userData.data))
+        const {data} = await axios.post("/login",creds)
+        console.log("before redux",data)
+        localStorage.setItem('jwt',data.token)
+        dispatch(userLogin())
         console.log("after redux")
-        navigate("/profile")
+        navigate("/profile", { state: { data } });
 
     }catch(err){
       console.log(err,'errrr');
@@ -39,6 +40,11 @@ function Login() {
 
 
   };
+  useEffect(() => {
+    if(user.isLogin){
+      navigate('/profile')
+    }
+  },[]) 
 
   return (
     <div className="min-h-screen sm:flex sm:flex-row mx-0 justify-center bg-slate-100">

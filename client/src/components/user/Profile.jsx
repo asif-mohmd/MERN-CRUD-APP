@@ -1,26 +1,33 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import UpdateProfilePic from "./upload/UpdateProfilePic";
-
-
+import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { userLogout } from "../../redux/Slices/authSlice";
 
 const Profile = () => {
-  const [modal, setmodal] = useState(false)
- const user= useSelector((state) => state.auth)
- const navigate = useNavigate()
+  const [modal, setmodal] = useState(false);
+  const user = useSelector((store) => store.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const dataLocation = useLocation();
+  const { name, age , location ,job } = dataLocation.state.data;
 
+ 
+  const logout = () => {
+    localStorage.removeItem("jwt");
+    dispatch(userLogout());
+    navigate("/");
+  };
+  const closeModal = () => {
+    setmodal(false);
+  };
 
- const logout =()=>{
-  localStorage.removeItem('userToken')
-
-  navigate('/')
- }
- const closeModal = () => {
-  setmodal(false);
-};
+  useEffect(() => {
+    if (!user.isLogin) {
+      navigate("/");
+    }
+  }, []);
   return (
     <>
       <link
@@ -38,39 +45,42 @@ const Profile = () => {
             <div className="relative inline-block">
               {" "}
               <img
-                onClick={()=>setmodal(true)}
-                src={user.img ?  user.img : "https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg"}
+                onClick={() => setmodal(true)}
+                src={
+                  user.img
+                    ? user.img
+                    : "https://icon-library.com/images/no-profile-pic-icon/no-profile-pic-icon-11.jpg"
+                }
                 className="cursor-pointer w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute 
               inset-x-0 top-0 -mt-24 flex items-center justify-center 
                duration-300 ease-in-out hover:scale-105 hover:opacity-70"
                 alt=""
-                title={user.img ? "Change Photo" :"Add photo"}
+                title={user.img ? "Change Photo" : "Add photo"}
               />{" "}
             </div>{" "}
             <div className="space-x-8 flex text-xs justify-between mt-32 md:mt-0 md:justify-end">
-              <button 
-              onClick={logout}
-              className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+              <button
+                onClick={logout}
+                className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+              >
                 Logout
-              <span className="text-blueGray-400 ml-2 cursor-pointer">
-        <FontAwesomeIcon icon={faSignOutAlt} className="text-sm" />
-      </span>
+                <span className="text-blueGray-400 ml-2 cursor-pointer">
+                  <FontAwesomeIcon icon={faSignOutAlt} className="text-sm" />
+                </span>
               </button>
             </div>
           </div>{" "}
           <div className="mt-20 text-center border-b py-8 pb-12">
             {" "}
             <h1 className="text-4xl font-medium text-gray-700">
-              {user.name}, <span className="font-light text-gray-500">{user.age}</span>
+              {name},{" "}
+              <span className="font-light text-gray-500">{age}</span>
             </h1>{" "}
             <p className="font-light text-gray-600 mt-3">
               <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-              {user.location}
+              {location}
             </p>{" "}
-            <p className="mt-8 text-gray-500">
-              {user.job}
-            </p>{" "}
-            
+            <p className="mt-8 text-gray-500">{job}</p>{" "}
           </div>{" "}
           <div className="mt-12 flex flex-col justify-center">
             {" "}
@@ -87,7 +97,6 @@ const Profile = () => {
           </div>
         </div>
         {/* <UpdateProfilePic modal={modal} closeModal={closeModal} id={user._id}/> */}
-        
       </div>
     </>
   );
