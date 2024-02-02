@@ -30,7 +30,7 @@ function Login() {
 
     }catch(err){
       console.log(err,'errrr');
-      // toast.error(err.request.status === 402 ?'Invalid Email Id': 'Incorrect Password')
+      toast.error(err.request.status === 402 ?'Invalid Email Id': 'Incorrect Password')
     }
 
     setCreds({

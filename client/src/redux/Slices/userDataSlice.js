@@ -18,14 +18,13 @@ const userDataSlice = createSlice({
         },
         clearUserData : (state)=>{
             console.log("clear called")
-            state.data = null
+            state.userDdata = null
         },
         updatePicture:(state,action)=>{
             state.userImg = action.payload;
         }
 
     }
-   
 })
 
 export const {setUserData,clearUserData,updatePicture} = userDataSlice.actions
