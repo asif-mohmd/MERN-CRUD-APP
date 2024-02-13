@@ -20,9 +20,7 @@ function Signup() {
     e.preventDefault();
 
     try {
-      console.log("oooooooooooooooooooo")
        const userData = await axios.post("/signup", user);
-console.log(userData,";;;;;;;;;;;;;;")
       navigate("/");
     } catch (err) {
       console.error("Error during user registration:", err);
