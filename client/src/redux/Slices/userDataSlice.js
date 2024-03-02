@@ -23,7 +23,6 @@ const userDataSlice = createSlice({
         updatePicture:(state,action)=>{
             state.userImg = action.payload;
         }
-
     }
 })
 
