@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image:asif9222/frontend-crud:frontend 
+        image: asif9222/frontend-crud:frontend 
         ports:
         - containerPort: 1234
 
