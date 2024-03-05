@@ -1,5 +1,6 @@
 # Ignore node_modules for server folder
 /server/node_modules/
+/server/Dockerfile
 .env
 
 
@@ -7,6 +8,7 @@
 /client/node_modules/
 /client/.parcel-cache
 /client/dist
+/client/Dockerfile
 
 # Ignore general node_modules, dist, and build folders
 /node_modules/
